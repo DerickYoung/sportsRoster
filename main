@@ -1,0 +1,110 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+int i = 0;
+int jersey;
+int rating;
+int vctrSize = 5;
+vector<int> jerseyNum(vctrSize);
+vector<int> playerRating(vctrSize);
+
+//Determines players jersey number and rating by user input
+for (i= 0; i < vctrSize; ++i) {
+cout << "Enter player " << i + 1 << "'s jersey number(0-99): ";
+cin >> jersey;
+jerseyNum.at(i) = jersey;
+
+
+cout << "Enter player " << i + 1 << "'s rating(1 - 10): ";
+cin >> rating;
+playerRating.at(i) = rating;
+cout << endl;
+}
+
+//Outputs roster by player jersey number and rating
+cout << "ROSTER" << endl;
+for (i = 0; i < vctrSize; ++i){
+cout << "Player " << i + 1 << " -- Jersey number: " << jerseyNum.at(i) << ", Rating: " << playerRating.at(i)
+<< endl;
+}
+cout << endl;
+
+//Menu to modify roster
+char userOption;
+bool changes = false;
+do {
+cout << endl;
+cout << "MENU" << endl;
+cout << "a - Add player" << endl; //vector.push_back(n);
+cout << "d - Remove player" << endl;
+cout << "u - Update player Rating" << endl;
+cout << "r - Output players above a rating" << endl;
+cout << "o - Output roster" << endl;
+cout << "q - Quit" << endl;
+cout << endl;
+cout << "Choose an option: ";
+cin >> userOption;
+
+//Menu Options
+cout << endl;
+if (userOption == 'a') {
+//Adds Player to the roster
+int newJerseyNum;
+int newPlayerRating;
+cout << "Enter a new players jersey number: ";
+cin >> newJerseyNum;
+cout << "Enter the players rating: ";
+cin >> newPlayerRating;
+vctrSize++;
+jerseyNum.push_back(newJerseyNum);
+playerRating.push_back(newPlayerRating);
+cout << "New players jersey number: " << jerseyNum.at(5) << " rating: " << playerRating.at(5) << endl;
+} else if (userOption == 'd') {
+//Removes Player from roster
+int removePlayer;
+cout << "Which player do you wish to remove?" << endl;
+cin >> removePlayer;
+jerseyNum.at(removePlayer - 1) = 0; //Error when using vector.erase()
+playerRating.at(removePlayer - 1) = 0; //Error when using vector.erase()
+} else if (userOption == 'u') {
+//Update player rating
+int updatePlayerRating;
+int newPlayerRating;
+cout << "Which players rating do you wish to update?" << endl;
+cin >> updatePlayerRating;
+cout << "What is their new player Rating? (1 - 10)" << endl;
+cin >> newPlayerRating;
+playerRating.at(updatePlayerRating - 1) = newPlayerRating;
+cout << "New rating for player number " << updatePlayerRating << ": "
+<< playerRating.at(updatePlayerRating - 1) << endl;
+} else if (userOption == 'r') {
+//Outputs all players above chosen rating
+int playersAboveRate;
+cout << "Enter a rating: ";
+cin >> playersAboveRate;
+cout << endl;
+for (i = 0; i < vctrSize; ++i) {
+if (playersAboveRate < playerRating.at(i)) {
+cout << "Player " << i + 1 << " -- Jersey number: " << jerseyNum.at(i) << ", Rating: "
+<< playerRating.at(i) << endl;
+}
+}
+} else if (userOption == 'o') {
+//Outputs Roster
+cout << "ROSTER" << endl;
+for (i = 0; i < vctrSize; ++i){
+cout << "Player " << i + 1 << " -- Jersey number: " << jerseyNum.at(i) << ", Rating: " << playerRating.at(i)
+<< endl;
+}
+cout << endl;
+} else if (userOption == 'q') {
+changes = true;
+} else {
+cout << "Menu is case-sensitive. Please try again." << endl;
+}
+} while (userOption != 'q');
+
+return 0;
+}
